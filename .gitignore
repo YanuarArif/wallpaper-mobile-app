@@ -8,6 +8,8 @@ node_modules/
 dist/
 web-build/
 %ProgramData%/
+ProgramData/
+.gitignore
 
 # Native
 *.orig.*
