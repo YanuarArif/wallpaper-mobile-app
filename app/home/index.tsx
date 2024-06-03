@@ -6,7 +6,7 @@ import {
   TextInput,
   View,
 } from "react-native";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Feather, FontAwesome6, Ionicons } from "@expo/vector-icons";
 import { theme } from "@/constants/theme";
@@ -15,6 +15,9 @@ import { dh, dw } from "@/utils/alatbantu";
 const Home = () => {
   const { top } = useSafeAreaInsets();
   const paddingTop = top > 0 ? top + 10 : 30;
+  const [search, setSearch] = useState("");
+  const searchInputRef = useRef(null);
+
   return (
     <View style={[styles.container, { paddingTop }]}>
       {/* Header */}
@@ -44,14 +47,19 @@ const Home = () => {
           <TextInput
             placeholder="Cari wallpaper..."
             style={styles.searchInput}
+            value={search}
+            ref={searchInputRef}
+            onChangeText={(value) => setSearch(value)}
           />
-          <Pressable style={styles.closeIcon}>
-            <Ionicons
-              name="close"
-              size={24}
-              color={theme.colors.neutral(0.6)}
-            />
-          </Pressable>
+          {search && (
+            <Pressable style={styles.closeIcon}>
+              <Ionicons
+                name="close"
+                size={24}
+                color={theme.colors.neutral(0.6)}
+              />
+            </Pressable>
+          )}
         </View>
       </ScrollView>
     </View>
