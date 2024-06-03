@@ -50,7 +50,7 @@ const WelcomeScreen = () => {
           </Animated.Text>
           <Animated.View entering={FadeInDown.delay(600).springify()}>
             <Pressable
-              onPress={() => router.push("home")}
+              onPress={() => router.push("/home/")}
               style={styles.startButton}>
               <Text style={styles.startText}>Mulai Jelajahi!</Text>
             </Pressable>
