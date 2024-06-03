@@ -18,7 +18,11 @@
 //   },
 // };
 
-const theme = {
+export const theme = {
+  fonts: {
+    body: "/assets/fonts/Poppins_400Regular.ttf",
+  },
+
   colors: {
     white: "#fff",
     black: "#000",
