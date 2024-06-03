@@ -1,0 +1,37 @@
+{
+  "cli": {
+    "version": ">= 9.1.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal", // Distribute to testers
+      "android": {
+        "buildType": "apk", // Build an APK 
+        "gradleCommand": ":app:assembleRelease"
+      },
+      "ios": {
+        "image": "latest" // Specify the Xcode image version to use
+      }
+    },
+    "production": {
+      "distribution": "store", // Distribute to app stores
+      "env": {
+        "API_KEY": "your_api_key_here"
+      },
+      "android": {
+        "buildType": "app-bundle", // Build an App Bundle for Google Play Store
+        "proguardRules": "./proguard-rules.pro"
+      },
+      "ios": {
+        "exportOptionsPlist": "./ios/ExportOptions.plist" 
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
