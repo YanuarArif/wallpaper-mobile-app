@@ -11,12 +11,19 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Feather, FontAwesome6, Ionicons } from "@expo/vector-icons";
 import { theme } from "@/constants/theme";
 import { dh, dw } from "@/utils/alatbantu";
+import Categories from "@/components/Categories";
 
 const Home = () => {
   const { top } = useSafeAreaInsets();
   const paddingTop = top > 0 ? top + 10 : 30;
   const [search, setSearch] = useState("");
   const searchInputRef = useRef(null);
+  const [activeCategory, setActiveCategory] = useState(null);
+
+  const handleCategory = (data) => {
+    setActiveCategory(data);
+  };
+  console.log("active category", activeCategory);
 
   return (
     <View style={[styles.container, { paddingTop }]}>
@@ -60,6 +67,14 @@ const Home = () => {
               />
             </Pressable>
           )}
+        </View>
+
+        {/* Categories */}
+        <View style={styles.categories}>
+          <Categories
+            activeCategory={activeCategory}
+            handleCategory={handleCategory}
+          />
         </View>
       </ScrollView>
     </View>
