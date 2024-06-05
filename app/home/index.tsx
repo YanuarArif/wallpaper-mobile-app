@@ -6,12 +6,13 @@ import {
   TextInput,
   View,
 } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Feather, FontAwesome6, Ionicons } from "@expo/vector-icons";
 import { theme } from "@/constants/theme";
 import { dh, dw } from "@/utils/alatbantu";
 import Categories from "@/components/Categories";
+import { apiCall } from "@/api";
 
 const Home = () => {
   const { top } = useSafeAreaInsets();
@@ -19,6 +20,20 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const searchInputRef = useRef(null);
   const [activeCategory, setActiveCategory] = useState(null);
+
+  useEffect(() => {
+    fetchImages();
+  }, []);
+
+  const fetchImages = async (params = { page: 1 }, append = true) => {
+    let res = await apiCall(params);
+
+    if (res.success) {
+      console.log("Pixabay response:", res.data);
+    } else {
+      console.error("response error:", res.msg);
+    }
+  };
 
   const handleCategory = (data) => {
     setActiveCategory(data);
