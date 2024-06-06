@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 
-// const apiKey = process.env.PIXABAY_API_KEY;
+// const apiKey = Config.PIXABAY_API_KEY;
 const apiKey = "26090029-bd9de456018039a43a7e2228d";
 const apiUrl = `https://pixabay.com/api/?key=${apiKey}`;
 
@@ -35,7 +35,7 @@ export const apiCall = async (params?: Params): Promise<ApiResponse> => {
     const response: AxiosResponse = await axios.get(formatUrl(params));
     return { success: true, data: response.data };
   } catch (err: any) {
-    console.error("Error occurred:", err.message);
+    console.error("Error muncul:", err.message);
     return { success: false, msg: err.message };
   }
 };

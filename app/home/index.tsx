@@ -13,6 +13,8 @@ import { theme } from "@/constants/theme";
 import { dh, dw } from "@/utils/alatbantu";
 import Categories from "@/components/Categories";
 import { apiCall } from "@/api";
+import ImageGrid from "@/components/ImageGrid";
+import { log } from "console";
 
 const Home = () => {
   const { top } = useSafeAreaInsets();
@@ -20,6 +22,7 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const searchInputRef = useRef(null);
   const [activeCategory, setActiveCategory] = useState(null);
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
     fetchImages();
@@ -28,10 +31,12 @@ const Home = () => {
   const fetchImages = async (params = { page: 1 }, append = true) => {
     let res = await apiCall(params);
 
-    if (res.success) {
-      console.log("Pixabay response:", res.data);
-    } else {
-      console.error("response error:", res.msg);
+    if (res.success && res?.data?.hits) {
+      if (append) {
+        setImages([...images, ...res.data.hits]);
+      } else {
+        setImages([...res.data.hits]);
+      }
     }
   };
 
@@ -91,6 +96,11 @@ const Home = () => {
             handleCategory={handleCategory}
           />
         </View>
+        {/* Images Masonary Grid */}
+        <View>
+          {images.length > 0 && <ImageGrid images={images} />}
+          {console.log("gambar:", images)}
+        </View>
       </ScrollView>
     </View>
   );
@@ -138,6 +148,7 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: theme.radius.sm,
   },
+  categories: {},
 });
 
 export default Home;
